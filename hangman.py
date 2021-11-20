@@ -16,17 +16,24 @@ def word_enter():
         word_guess(word)
 
 def word_guess(word):
+    word_array=[]
+    incorrect=[]
     chance=0
     correct=0
-    guess=input(print("Guess a letter: "))
     word_len=len(word)
+    
+    for j in word:
+        word_array.append(j)
+    
+    guess=input(print("Guess a letter: "))
+   
 
-    for i in word:
-        if guess==i:
-            correct+=1
-            print("The letter "+ guess+" is correct "+correct)
-        else:
-            print("false")
+    #for i in word:
+        #if guess==i:
+            #correct+=1
+            #print("The letter "+ guess+" is correct "+correct)
+        #else:
+            #print("false")
 
 
     
