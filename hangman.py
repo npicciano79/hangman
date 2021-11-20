@@ -1,5 +1,9 @@
 #hangman game
 
+
+
+
+
 def word_enter():
     word=''
     bad_char={"/",".",",","[","]",")","(","&","%"}
@@ -16,16 +20,34 @@ def word_enter():
         word_guess(word)
 
 def word_guess(word):
+    global chance
+    global correct
+
     word_array=[]
     incorrect=[]
-    chance=0
-    correct=0
+    #chance=0
+    #correct=0
     word_len=len(word)
     
     for j in word:
         word_array.append(j)
-    
-    guess=input(print("Guess a letter: "))
+
+    while chance <= 5:
+        guess=input(print("Guess a letter: "))
+        if guess in word_array:
+            word_array=remove(word_array,guess)
+            
+"""
+            place=guess[index]
+            correct+=1
+            word_array.pop(guess)
+            print(word_array)
+            #print(f"True {guess} count {correct}")
+
+        else:
+            incorrect.append(guess)
+            chance+=1
+            print(f"false: {incorrect} chance {chance}")
    
 
     #for i in word:
@@ -34,9 +56,10 @@ def word_guess(word):
             #print("The letter "+ guess+" is correct "+correct)
         #else:
             #print("false")
+"""
 
-
-    
+def remove(word_array,guess):
+    return [value for value in word_array if value !=guess]
 
 
 
@@ -45,4 +68,6 @@ def word_guess(word):
 
 
 if __name__=="__main__":
+    chance=0
+    correct=0
     word_enter()
