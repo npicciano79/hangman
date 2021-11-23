@@ -24,19 +24,34 @@ def word_guess(word):
     global correct
 
     word_array=[]
+    temp_array=[]
     incorrect=[]
-    #chance=0
-    #correct=0
     word_len=len(word)
-    
+    fill_array=[]
+    answer_word=''
+    for i in range(0,word_len):
+        fill_array.append('_')
+        answer_word=answer_word+fill_array[i]
     for j in word:
         word_array.append(j)
+    
+    temp_array=word_array
 
-    while chance <= 5:
-        guess=input(print("Guess a letter: "))
-        if guess in word_array:
-            word_array=remove(word_array,guess)
+    while chance!=0:
+        guess=input(f"Word: {answer_word} Incorrect Letter: {incorrect} Remainding Chances: {chance} Guess: ")
+        if guess in word_array:             #guess is correct
+            fill_array,answer_word,correct=word_fill(temp_array, fill_array,guess,correct)      #calls word_fill, returns answer word and fill array 
+            word_array=remove(word_array,guess)                                 #calls remove which retums word_array minus guess letter
+            if correct == word_len:
+                print("correct you have completed the game")
+        #guess is incorrect
+        else:
+            incorrect.append(guess)
+            chance-=1
+            hangman_pic(chance,word)
             
+        
+           
 """
             place=guess[index]
             correct+=1
@@ -46,7 +61,7 @@ def word_guess(word):
 
         else:
             incorrect.append(guess)
-            chance+=1
+            chance-=1
             print(f"false: {incorrect} chance {chance}")
    
 
@@ -62,12 +77,69 @@ def remove(word_array,guess):
     return [value for value in word_array if value !=guess]
 
 
+def word_fill(temp_array, fill_array,guess,correct):
+    answer_word=''
+    for i,val in enumerate(temp_array):
+        if val ==guess:
+            fill_array[i]=guess
+            correct+=1
+        answer_word=answer_word+fill_array[i]
 
+    return fill_array,answer_word,correct
 
-
+def hangman_pic(chance,word):
+    if chance==5:
+        print(" +------+")
+        print(" |      |")
+        print(" |      o")
+        print(" |")
+        print(" |")
+        print(" |")
+        print("====")
+    elif chance ==4:
+        print(" +------+")
+        print(" |      |")
+        print(" |      o")
+        print(" |      |")
+        print(" |")
+        print(" |")
+        print("====")
+    elif chance==3:
+        print(" +------+")
+        print(" |      |")
+        print(" |      o")
+        print(" |     /|")
+        print(" |")
+        print(" |")
+        print("====")
+    elif chance ==2:
+        print(" +------+")
+        print(" |      |")
+        print(" |      o")
+        print(" |     /|\/")
+        print(" |")
+        print(" |")
+        print("====")
+    elif chance==1:
+        print(" +------+")
+        print(" |      |")
+        print(" |      o")
+        print(" |     /|\/")
+        print(" |     /")
+        print(" |")
+        print("====")
+    else:
+        print(" +------+")
+        print(" |      |")
+        print(" |      o")
+        print(" |     /|\/")
+        print(" |     / \/")
+        print(" |")
+        print("====")
+        print("Game over: the word was \""+word+"\", dumbass!!")
 
 
 if __name__=="__main__":
-    chance=0
+    chance=6
     correct=0
     word_enter()
