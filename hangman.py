@@ -136,8 +136,11 @@ def hangman_pic(chance,word):
         print(" |     / \/")
         print(" |")
         print("====")
-        print("Game over: the word was \""+word+"\", dumbass!!")
-
+        new_game=input("Game over: the word was \""+word+"\", dumbass!! Do you want to play again \"Yes\" or \"No\"").lower
+        if  new_game=='yes' or 'y':
+            word_enter()
+        else:
+            exit()
 
 if __name__=="__main__":
     chance=6
