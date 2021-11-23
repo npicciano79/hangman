@@ -1,7 +1,28 @@
 #hangman game
+import random,requests
 
 
+def select_game():
+    select=input("Welcome to Hangman, do you want to Enter(E) a word or have it selected at Random(R): ")
+    if select=='e':
+        word_enter()
+    elif select=='r':
+        random_word()
+    else:
+        print("Please enter \'r\' or \'e\'")
+        select_game()
+        
 
+def random_word():
+    #return random word 
+    word_site="https://www.mit.edu/~ecprice/wordlist.10000"
+
+    response=requests.get(word_site)
+    WORDS=response.content.splitlines()
+    wordIndex=random.randint(0,len(WORDS)-1)
+    n_word=str(WORDS[wordIndex]).split("b'")[1].split("'")[0]
+
+    word_guess(n_word)
 
 
 def word_enter():
@@ -116,7 +137,7 @@ def hangman_pic(chance,word):
         print(" +------+")
         print(" |      |")
         print(" |      o")
-        print(" |     /|\/")
+        print(" |     /|\\")
         print(" |")
         print(" |")
         print("====")
@@ -124,7 +145,7 @@ def hangman_pic(chance,word):
         print(" +------+")
         print(" |      |")
         print(" |      o")
-        print(" |     /|\/")
+        print(" |     /|\\")
         print(" |     /")
         print(" |")
         print("====")
@@ -132,8 +153,8 @@ def hangman_pic(chance,word):
         print(" +------+")
         print(" |      |")
         print(" |      o")
-        print(" |     /|\/")
-        print(" |     / \/")
+        print(" |     /|\\")
+        print(" |     / \\")
         print(" |")
         print("====")
         new_game=input("Game over: the word was \""+word+"\", dumbass!! Do you want to play again \"Yes\" or \"No\"").lower
@@ -145,4 +166,4 @@ def hangman_pic(chance,word):
 if __name__=="__main__":
     chance=6
     correct=0
-    word_enter()
+    select_game()
