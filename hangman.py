@@ -70,29 +70,6 @@ def word_guess(word):
             incorrect.append(guess)
             chance-=1
             hangman_pic(chance,word)
-            
-        
-           
-"""
-            place=guess[index]
-            correct+=1
-            word_array.pop(guess)
-            print(word_array)
-            #print(f"True {guess} count {correct}")
-
-        else:
-            incorrect.append(guess)
-            chance-=1
-            print(f"false: {incorrect} chance {chance}")
-   
-
-    #for i in word:
-        #if guess==i:
-            #correct+=1
-            #print("The letter "+ guess+" is correct "+correct)
-        #else:
-            #print("false")
-"""
 
 def remove(word_array,guess):
     return [value for value in word_array if value !=guess]
