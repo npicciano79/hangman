@@ -4,9 +4,9 @@ import random,requests
 
 def select_game():
     select=input("Welcome to Hangman, do you want to Enter(E) a word or have it selected at Random(R): ")
-    if select=='e':
+    if select.lower()=='e':
         word_enter()
-    elif select=='r':
+    elif select.lower()=='r':
         random_word()
     else:
         print("Please enter \'r\' or \'e\'")
@@ -134,9 +134,9 @@ def hangman_pic(chance,word):
         print(" |     / \\")
         print(" |")
         print("====")
-        new_game=input("Game over: the word was \""+word+"\", dumbass!! Do you want to play again \"Yes\" or \"No\"").lower
-        if  new_game=='yes' or 'y':
-            word_enter()
+        new_game=input("Game over: the word was \""+word+"\", dumbass!! Do you want to play again \"Yes(Y)\" or \"No(N)\"").lower
+        if  new_game.lower()=='yes' or 'y':
+            select_game()
         else:
             exit()
 
