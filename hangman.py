@@ -1,5 +1,5 @@
 #hangman game
-import random,requests
+import random,requests,time
 
 
 def select_game():
@@ -59,12 +59,19 @@ def word_guess(word):
     temp_array=word_array
 
     while chance!=0:
-        guess=input(f"Word: {answer_word} Incorrect Letter: {incorrect} Remainding Chances: {chance} Guess: ")
+        guess=input(f"Word: {answer_word} Incorrect Letter: {incorrect} Remaining Chances: {chance} Guess: ")
         if guess in word_array:             #guess is correct
             fill_array,answer_word,correct=word_fill(temp_array, fill_array,guess,correct)      #calls word_fill, returns answer word and fill array 
             word_array=remove(word_array,guess)                                 #calls remove which retums word_array minus guess letter
+            if correct>word_len/2:
+                guess_the_word(word)
+            
+            
             if correct == word_len:
-                print("correct you have completed the game")
+                game_result=1
+                end_game(game_result,word)
+
+            
         #guess is incorrect
         else:
             incorrect.append(guess)
@@ -134,11 +141,38 @@ def hangman_pic(chance,word):
         print(" |     / \\")
         print(" |")
         print("====")
-        new_game=input("Game over: the word was \""+word+"\", dumbass!! Do you want to play again \"Yes(Y)\" or \"No(N)\"").lower
-        if  new_game.lower()=='yes' or 'y':
-            select_game()
+        game_result=0
+        end_game(game_result,word)
+
+def guess_the_word(word):
+    g_yesno=input("Would you like to guess the word \"Yes(Y)\" or \"No(N)\"?")
+    if g_yesno.lower()=='yes' or 'y':
+        y=input(" Enter your guess: ")
+        if y==word:
+            game_result=1
+            end_game(game_result,word)
         else:
-            exit()
+            print("Wrong Dumbass, keep guessing letters.")
+            time.sleep(3)
+            word_guess()
+
+
+
+
+
+def end_game(game_result,word):
+    if game_result==0:
+        new_game=input("Game over: the word was \""+word+"\", dumbass!! Do you want to play again \"Yes(Y)\" or \"No(N)\"")
+    else:
+        new_game=input("Congratulations, you guesses "+word+" correctly.Do you want to play again \"Yes(Y)\" or \"No(N)\"")
+    if  new_game.lower()=='yes' or 'y':
+        select_game()
+    else:
+        exit()
+
+
+
+
 
 if __name__=="__main__":
     chance=6
