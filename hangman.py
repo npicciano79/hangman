@@ -64,8 +64,8 @@ def word_guess(word):
             fill_array,answer_word,correct=word_fill(temp_array, fill_array,guess,correct)      #calls word_fill, returns answer word and fill array 
             word_array=remove(word_array,guess)                                 #calls remove which retums word_array minus guess letter
             if correct>word_len/2:
-                guess_the_word(word)
-            
+                guess_the_word(word, fill_array)
+
             
             if correct == word_len:
                 game_result=1
@@ -83,7 +83,7 @@ def remove(word_array,guess):
 
 
 def word_fill(temp_array, fill_array,guess,correct):
-    answer_word=''
+    #answer_word=''
     for i,val in enumerate(temp_array):
         if val ==guess:
             fill_array[i]=guess
@@ -144,7 +144,7 @@ def hangman_pic(chance,word):
         game_result=0
         end_game(game_result,word)
 
-def guess_the_word(word):
+def guess_the_word(word,fill_array):
     g_yesno=input("Would you like to guess the word \"Yes(Y)\" or \"No(N)\"?")
     if g_yesno.lower()=='yes' or 'y':
         y=input(" Enter your guess: ")
