@@ -49,20 +49,26 @@ def word_guess(word):
     incorrect=[]
     word_len=len(word)
     fill_array=[]
-    answer_word=''
+    answer_word=' '
+    #creates blank word (answer_word) to be filled by correct guesses
+    #creates filled, word_array, to match with guesses
     for i in range(0,word_len):
         fill_array.append('_')
-        answer_word=answer_word+fill_array[i]
+        #input(f"fill array: {fill_array}")
+        answer_word=answer_word+' '+fill_array[i]
+        #input(f"answer word: {answer_word}")
     for j in word:
         word_array.append(j)
-    
+        #input(f"word array: {word_array}")
     temp_array=word_array
 
     while chance!=0:
         guess=input(f"Word: {answer_word} Incorrect Letter: {incorrect} Remaining Chances: {chance} Guess: ")
         if guess in word_array:             #guess is correct
-            fill_array,answer_word,correct=word_fill(temp_array, fill_array,guess,correct)      #calls word_fill, returns answer word and fill array 
-            word_array=remove(word_array,guess)                                 #calls remove which retums word_array minus guess letter
+            #fill_array,answer_word,correct=word_fill(guess,correct,temp_array,fill_array)  #     #calls word_fill, returns answer word and fill array 
+            #word_array=remove(word_array,guess)                                 #calls remove which retums word_array minus guess letter
+            correct+=1
+            
             if correct>word_len/2:
                 guess_the_word(word, fill_array)
 
@@ -82,15 +88,17 @@ def remove(word_array,guess):
     return [value for value in word_array if value !=guess]
 
 
-def word_fill(temp_array, fill_array,guess,correct):
+def word_fill(guess,correct,temp_array,fill_array):           #temp_array, ,
+    input(f"correct: {correct} guess{guess} temp array :{temp_array} fill array: {fill_array}")
     #answer_word=''
     for i,val in enumerate(temp_array):
         if val ==guess:
             fill_array[i]=guess
             correct+=1
-        answer_word=answer_word+fill_array[i]
+        input(f"fill array: {fill_array}")
+        #answer_word=answer_word+fill_array[i]
 
-    return fill_array,answer_word,correct
+    #return fill_array,answer_word,correct
 
 def hangman_pic(chance,word):
     if chance==5:
