@@ -27,7 +27,7 @@ def random_word():
 
 def word_enter():
     word=''
-    bad_char={"/",".",",","[","]",")","(","&","%"}
+    bad_char={"/",".",",","[","]",")","(","%"}
     bad_key="False"
     word=input("Enter your word or phrase: ")
     for i in word:
@@ -67,15 +67,26 @@ def word_guess(word):
         if guess in word_array:             #guess is correct
             #fill_array,answer_word,correct=word_fill(guess,correct,temp_array,fill_array)  #     #calls word_fill, returns answer word and fill array 
             #word_array=remove(word_array,guess)                                 #calls remove which retums word_array minus guess letter
-            correct+=1
-            
-            if correct>word_len/2:
-                guess_the_word(word, fill_array)
+            for i,val in enumerate(temp_array):
+                if val ==guess:
+                    fill_array[i]=guess
+                    correct+=1
+            input(f"fill array: {fill_array}")
+            answer_word=" "
+            for j in fill_array:
+                answer_word+=j+" "
+            #answer_word=answer_word+fill_array[i]
+            input(f"answer word: {answer_word}")
+
+
+            #if correct>word_len/2:
+                #guess_the_word(word, fill_array)
+
 
             
-            if correct == word_len:
-                game_result=1
-                end_game(game_result,word)
+            #if correct == word_len:
+                #game_result=1
+                #end_game(game_result,word)
 
             
         #guess is incorrect
@@ -154,15 +165,17 @@ def hangman_pic(chance,word):
 
 def guess_the_word(word,fill_array):
     g_yesno=input("Would you like to guess the word \"Yes(Y)\" or \"No(N)\"?")
-    if g_yesno.lower()=='yes' or 'y':
+    if g_yesno.lower=='yes' or 'y':
         y=input(" Enter your guess: ")
         if y==word:
             game_result=1
             end_game(game_result,word)
         else:
-            print("Wrong Dumbass, keep guessing letters.")
+            print("Incorrect, keep guessing letters.")
             time.sleep(3)
             word_guess()
+    else:
+        word_guess()
 
 
 
@@ -170,7 +183,7 @@ def guess_the_word(word,fill_array):
 
 def end_game(game_result,word):
     if game_result==0:
-        new_game=input("Game over: the word was \""+word+"\", dumbass!! Do you want to play again \"Yes(Y)\" or \"No(N)\"")
+        new_game=input("Game over: the word was \""+word+"\"!! Do you want to play again \"Yes(Y)\" or \"No(N)\"")
     else:
         new_game=input("Congratulations, you guesses "+word+" correctly.Do you want to play again \"Yes(Y)\" or \"No(N)\"")
     if  new_game.lower()=='yes' or 'y':
